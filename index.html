@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intel Portal | @exupureborn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #050505; color: #a1a1aa; }
+        .glass-card { background: #0a0a0a; border: 1px solid #1f2937; }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-white selection:text-black px-4 py-10 font-sans">
+
+    <div class="max-w-2xl mx-auto text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 text-[10px] tracking-[0.2em] text-zinc-500 mb-6 uppercase">
+            <i class="fas fa-shield-alt text-white"></i> Authorized Access Only
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-4">INTEL PORTAL</h1>
+        <p class="text-sm text-zinc-500 uppercase tracking-widest">Dev: @exupureborn</p>
+    </div>
+
+    <!-- Search Form -->
+    <div class="max-w-xl mx-auto mb-12">
+        <div class="relative group">
+            <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                <i class="fas fa-search text-zinc-600 group-focus-within:text-white transition-colors"></i>
+            </div>
+            <input type="text" id="phoneInput" placeholder="Search database..." 
+                class="w-full bg-[#0a0a0a] border border-zinc-800 rounded-2xl py-4 pl-12 pr-32 text-white outline-none focus:border-zinc-600 transition-all shadow-2xl">
+            <button onclick="executeSearch()" id="searchBtn"
+                class="absolute right-2 top-2 bottom-2 px-6 bg-white text-black font-bold rounded-xl hover:bg-zinc-200 transition-all text-xs">
+                EXECUTE
+            </button>
+        </div>
+    </div>
+
+    <!-- Results Container -->
+    <div id="resultsArea" class="max-w-2xl mx-auto space-y-4">
+        <!-- Results will appear here -->
+    </div>
+
+    <script>
+        async function executeSearch() {
+            const query = document.getElementById('phoneInput').value;
+            const btn = document.getElementById('searchBtn');
+            const resultsArea = document.getElementById('resultsArea');
+
+            if (!query) return;
+
+            btn.innerText = "SCANNING...";
+            btn.disabled = true;
+            resultsArea.innerHTML = "";
+
+            try {
+                const response = await fetch(`https://ayush-multi-apiv2.onrender.com/num?q=${query}`);
+                const data = await response.json();
+
+                if (data.success && data.data.result.data.length > 0) {
+                    data.data.result.data.forEach((item, index) => {
+                        resultsArea.innerHTML += `
+                            <div class="glass-card rounded-2xl p-6 shadow-lg">
+                                <div class="flex justify-between items-start mb-6">
+                                    <div class="flex items-center gap-3">
+                                        <div class="p-2 bg-zinc-900 rounded-lg border border-zinc-800">
+                                            <i class="fas fa-user text-white"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-white font-bold tracking-tight">${item.NAME || 'UNKNOWN'}</h3>
+                                            <p class="text-[10px] text-zinc-600 uppercase tracking-tighter">Profile Record #${index + 1}</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-[10px] bg-zinc-900 px-2 py-1 rounded border border-zinc-800 font-bold text-white">VERIFIED</div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-sm">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-database text-zinc-600 w-4 text-center"></i>
+                                        <span class="text-zinc-500">Father:</span>
+                                        <span class="text-zinc-300">${item.fname || 'N/A'}</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-phone text-zinc-600 w-4 text-center"></i>
+                                        <span class="text-zinc-500">Mobile:</span>
+                                        <span class="text-blue-400 font-mono">${item.MOBILE}</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 md:col-span-2">
+                                        <i class="fas fa-map-marker-alt text-zinc-600 w-4 text-center"></i>
+                                        <span class="text-zinc-500">Location:</span>
+                                        <span class="text-zinc-300 leading-relaxed text-xs">${item.ADDRESS}</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-bolt text-zinc-600 w-4 text-center"></i>
+                                        <span class="text-zinc-500">Circle:</span>
+                                        <span class="text-zinc-400">${item.circle}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    resultsArea.innerHTML = `<p class="text-center text-zinc-600">No records identified in current database.</p>`;
+                }
+            } catch (error) {
+                resultsArea.innerHTML = `<p class="text-center text-red-500">System Error: Connection Failed.</p>`;
+            } finally {
+                btn.innerText = "EXECUTE";
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
+
