@@ -1,9 +1,7 @@
 {
+  "version": 2,
   "rewrites": [
-    {
-      "source": "/api/check",
-      "destination": "https://ayush-multi-apiv2.onrender.com/num"
-    }
+    { "source": "/api/verify", "destination": "/api/verify.js" },
+    { "source": "/api/check-status", "destination": "/api/check-status.js" }
   ]
 }
-
