@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PredictJS - WinGo AI Automation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #ffffff; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px rgba(255, 255, 255, 0.08) solid; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="relative w-full max-w-md glass rounded-3xl p-6 overflow-hidden shadow-2xl">
+        
+        <div class="text-center mb-8">
+            <div class="inline-block px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full uppercase tracking-widest mb-2 animate-pulse">
+                ● Live AI Engine Active
+            </div>
+            <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">PredictJS v4.0</h1>
+            <p class="text-xs text-neutral-400 tracking-widest mt-1">WINGO 1-MINUTE AUTOMATION</p>
+        </div>
+
+        <div id="prediction-panel" class="blur-xl pointer-events-none select-none transition duration-700 space-y-4">
+            <div class="bg-white/5 rounded-2xl p-4 border border-white/5 flex justify-between items-center">
+                <div>
+                    <p class="text-xs text-neutral-400 uppercase tracking-wider">Active Period</p>
+                    <p id="lbl-period" class="text-lg font-bold tracking-wider text-neutral-200">202605181000</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-xs text-neutral-400 uppercase tracking-wider">Time Remaining</p>
+                    <p id="lbl-timer" class="text-lg font-black text-amber-400 tracking-widest">00:59</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white/5 rounded-2xl p-5 border border-white/5 text-center">
+                    <p class="text-xs text-neutral-400 uppercase tracking-wider mb-1">AI Prediction</p>
+                    <p id="lbl-color" class="text-3xl font-black tracking-wide">---</p>
+                </div>
+                <div class="bg-white/5 rounded-2xl p-5 border border-white/5 text-center">
+                    <p class="text-xs text-neutral-400 uppercase tracking-wider mb-1">Size Target</p>
+                    <p id="lbl-size" class="text-3xl font-black tracking-wide text-neutral-300">---</p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-3 text-center text-xs font-semibold text-emerald-400">
+                Algorithm Accuracy Rate: <span id="lbl-accuracy">94.8%</span>
+            </div>
+        </div>
+
+        <div id="gate-overlay" class="absolute inset-0 bg-[#0b0f19]/90 flex flex-col justify-center p-8 transition-all duration-500">
+            <div class="text-center mb-6">
+                <h2 class="text-xl font-extrabold uppercase tracking-wide text-white">Unlock Live Dashboard</h2>
+                <p class="text-xs text-neutral-400 mt-1">Your Game UID must be linked to our server network.</p>
+                <a href="YOUR_REGISTRATION_LINK" target="_blank" class="inline-block mt-4 text-xs font-bold text-emerald-400 underline hover:text-emerald-300">
+                    Don't have an account? Register Here First ➔
+                </a>
+            </div>
+
+            <div class="space-y-4" id="form-container">
+                <div>
+                    <label class="block text-neutral-400 text-xs font-bold uppercase tracking-wider mb-2">Enter Game UID</label>
+                    <input type="number" id="input-uid" placeholder="e.g. 782910" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 text-white tracking-widest text-center text-lg outline-none focus:border-emerald-500 transition">
+                </div>
+                <button onclick="submitUID()" class="w-full bg-white text-black hover:bg-neutral-200 p-3.5 font-bold rounded-xl tracking-wider uppercase text-sm transition shadow-lg">
+                    Verify & Unlock Access
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
